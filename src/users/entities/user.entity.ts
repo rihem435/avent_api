@@ -38,7 +38,7 @@ export class UserEntity extends Document {
    @Prop({required: true}) 
    user_password: string;
 
-   @Prop ({required: true})
+   @Prop ()
    user_profile_photo: string;
 
    @Prop({default: false})

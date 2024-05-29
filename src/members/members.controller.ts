@@ -20,7 +20,15 @@ export class MembersController {
                              }),)
 
   create(@Body() createMemberDto: CreateMemberDto,@UploadedFile()file) {
-    createMemberDto.user_profile_photo=file.filename;
+    if(file != null){
+     // console.log(`data=============zsQS===============`)
+
+      createMemberDto.user_profile_photo=file.filename;
+
+    }else {
+      createMemberDto.user_profile_photo="";
+
+    }
     return this.membersService.createMember(createMemberDto);
   }
 

@@ -13,6 +13,7 @@ export class MembersService {
   constructor (@InjectModel('users') private MemberModel: Model<IMember>) {}
 
   async createMember(createMemberDto: CreateMemberDto): Promise<IMember> {
+    console.log(`data============================`)
 
     const newMember = await new this.MemberModel(createMemberDto);
     return newMember.save();

@@ -24,7 +24,12 @@ let MembersController = class MembersController {
         this.membersService = membersService;
     }
     create(createMemberDto, file) {
-        createMemberDto.user_profile_photo = file.filename;
+        if (file != null) {
+            createMemberDto.user_profile_photo = file.filename;
+        }
+        else {
+            createMemberDto.user_profile_photo = "";
+        }
         return this.membersService.createMember(createMemberDto);
     }
     findAll() {

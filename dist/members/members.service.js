@@ -21,6 +21,7 @@ let MembersService = class MembersService {
         this.MemberModel = MemberModel;
     }
     async createMember(createMemberDto) {
+        console.log(`data============================`);
         const newMember = await new this.MemberModel(createMemberDto);
         return newMember.save();
     }
