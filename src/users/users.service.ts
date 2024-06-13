@@ -78,7 +78,7 @@ export class UsersService {
   }
 
   async sendMail(to: string, from: string, subject: string, content: string): Promise<void> {
-    const code = Math.floor(Math.random() * 10000);
+    const code = Math.floor(Math.random() * 1000000);
     const existingUser = await this.UserModel.findOne({ user_email: to }).exec();
     if (!existingUser) {
       throw new NotFoundException(`User #${to} not found`);
@@ -90,6 +90,7 @@ export class UsersService {
       subject,
       text: " votre code est " + code,
     };
+    console.log(`code ${code}`)
     await this.transporter.sendMail(mailOptions);
   }
 
@@ -123,6 +124,18 @@ export class UsersService {
     return user;
 
   }
+  async updatePassword(userId: string, newPassword: string): Promise<void> {
+    // Recherchez l'utilisateur par son ID
+    const utilisateur = await this.UserModel.findById(userId);
 
+    // Vérifiez si l'utilisateur existe
+    if (!utilisateur) {
+      throw new Error('Utilisateur non trouvé');
+    }
+
+    // Mettre à jour le mot de passe de l'utilisateur
+    utilisateur.user_password = newPassword;
+    await utilisateur.save();
+  }
 
 }

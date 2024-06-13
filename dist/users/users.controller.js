@@ -171,9 +171,9 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "sendMail", null);
 __decorate([
-    (0, common_1.Get)('/verifyCode'),
+    (0, common_1.Get)('/verifyCode/:code'),
     __param(0, (0, common_1.Res)()),
-    __param(1, (0, common_1.Query)('code')),
+    __param(1, (0, common_1.Param)('code')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, String]),
     __metadata("design:returntype", Promise)

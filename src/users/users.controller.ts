@@ -97,8 +97,8 @@ export class UsersController {
   }
 
 
-  @Get('/verifyCode')
-  async verifyCUserByCode(@Res() response, @Query('code') code: string) {
+  @Get('/verifyCode/:code')
+  async verifyCUserByCode(@Res() response, @Param('code') code: string) {
 
     try {
       const existingUser = await this.usersService.verifyUserByCode(code);

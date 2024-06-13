@@ -40,4 +40,5 @@ export declare class UsersService {
     sendMail(to: string, from: string, subject: string, content: string): Promise<void>;
     verifyUserByCode(code: string): Promise<IUser>;
     confirmation_user_account(id: string): Promise<IUser>;
+    updatePassword(userId: string, newPassword: string): Promise<void>;
 }

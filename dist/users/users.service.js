@@ -67,7 +67,7 @@ let UsersService = class UsersService {
         return deleteUser;
     }
     async sendMail(to, from, subject, content) {
-        const code = Math.floor(Math.random() * 10000);
+        const code = Math.floor(Math.random() * 1000000);
         const existingUser = await this.UserModel.findOne({ user_email: to }).exec();
         if (!existingUser) {
             throw new common_1.NotFoundException(`User #${to} not found`);
@@ -79,6 +79,7 @@ let UsersService = class UsersService {
             subject,
             text: " votre code est " + code,
         };
+        console.log(`code ${code}`);
         await this.transporter.sendMail(mailOptions);
     }
     async verifyUserByCode(code) {
@@ -99,6 +100,14 @@ let UsersService = class UsersService {
         await this.transporter.sendMail(mailOptions);
         console.log("first");
         return user;
+    }
+    async updatePassword(userId, newPassword) {
+        const utilisateur = await this.UserModel.findById(userId);
+        if (!utilisateur) {
+            throw new Error('Utilisateur non trouvé');
+        }
+        utilisateur.user_password = newPassword;
+        await utilisateur.save();
     }
 };
 exports.UsersService = UsersService;
