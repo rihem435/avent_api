@@ -1,10 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile, UploadedFiles, Put, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile, UploadedFiles, Put, UseGuards, HttpStatus, Res } from '@nestjs/common';
 import { EventsService } from './events.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { AccessTokenGuard } from 'src/authentification/guards/accessToken.guard';
+import { response } from 'express';
 
 @Controller('events')
 export class EventsController {
@@ -27,8 +28,23 @@ export class EventsController {
 
   /* -- Méthode "Get" de routage d'affichage -- */
   @Get()
-    getAllEvent() {
-      return this.eventsService.getAllEvent();
+    async getAllEvent(@Res() response) {
+      try{
+      const data =await  this.eventsService.getAllEvent();
+      return response.status(HttpStatus.OK).json({
+        message: "event found ",
+        status: HttpStatus.OK,
+        data: data
+      })
+    } catch (error) {
+      return response.status(HttpStatus.BAD_REQUEST).json({
+        message: error.message,
+        status: HttpStatus.NOT_FOUND,
+        data:null
+      })
+      
+      
+    }
   }
 
   @Get(':id')

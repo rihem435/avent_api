@@ -28,8 +28,22 @@ let EventsController = class EventsController {
         createEventDto.event_galleries = files.map(item => item.filename);
         return this.eventsService.createEvent(createEventDto);
     }
-    getAllEvent() {
-        return this.eventsService.getAllEvent();
+    async getAllEvent(response) {
+        try {
+            const data = await this.eventsService.getAllEvent();
+            return response.status(common_1.HttpStatus.OK).json({
+                message: "event found ",
+                status: common_1.HttpStatus.OK,
+                data: data
+            });
+        }
+        catch (error) {
+            return response.status(common_1.HttpStatus.BAD_REQUEST).json({
+                message: error.message,
+                status: common_1.HttpStatus.NOT_FOUND,
+                data: null
+            });
+        }
     }
     getEvent(id) {
         return this.eventsService.getEvent(id);
@@ -59,9 +73,10 @@ __decorate([
 ], EventsController.prototype, "createEvent", null);
 __decorate([
     (0, common_1.Get)(),
+    __param(0, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
 ], EventsController.prototype, "getAllEvent", null);
 __decorate([
     (0, common_1.Get)(':id'),
