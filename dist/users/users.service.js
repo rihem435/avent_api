@@ -79,6 +79,7 @@ let UsersService = class UsersService {
             subject,
             text: " votre code est " + code,
         };
+        console.log(`code ${code}`);
         await this.transporter.sendMail(mailOptions);
     }
     async verifyUserByCode(code) {
