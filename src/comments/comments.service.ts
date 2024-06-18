@@ -36,7 +36,7 @@ export class CommentsService {
   }
   
   async getAllComment(): Promise <IComment[]> {
-    const CommentData = await this.CommentsModel.find();
+    const CommentData = await this.CommentsModel.find().populate('user_id');
       if (!CommentData || CommentData.length == 0) {
         throw new NotFoundException('Comment data not found!');
       }

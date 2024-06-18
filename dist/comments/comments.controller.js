@@ -24,8 +24,22 @@ let CommentsController = class CommentsController {
     createComment(createCommentDto) {
         return this.commentsService.createComment(createCommentDto);
     }
-    getAllComment() {
-        return this.commentsService.getAllComment();
+    async findAll(response) {
+        try {
+            const commentsData = await this.commentsService.getAllComment();
+            return response.status(common_1.HttpStatus.OK).json({
+                message: "Comments Data found successfully",
+                status: common_1.HttpStatus.OK,
+                data: commentsData
+            });
+        }
+        catch (error) {
+            return response.status(common_1.HttpStatus.BAD_REQUEST).json({
+                message: error.message,
+                status: common_1.HttpStatus.BAD_REQUEST,
+                data: null
+            });
+        }
     }
     getComment(id) {
         return this.commentsService.getComment(id);
@@ -47,10 +61,11 @@ __decorate([
 ], CommentsController.prototype, "createComment", null);
 __decorate([
     (0, common_1.Get)(),
+    __param(0, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], CommentsController.prototype, "getAllComment", null);
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], CommentsController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
