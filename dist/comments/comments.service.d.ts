@@ -36,6 +36,7 @@ export declare class CommentsService {
     createComment(createCommentDto: CreateCommentDto): Promise<IComment>;
     updateComment(CommentId: string, updateCommentDto: UpdateCommentDto): Promise<IComment>;
     getAllComment(): Promise<IComment[]>;
+    findAllByEventAndUser(eventId: string, userId: string): Promise<IComment[]>;
     getComment(CommentId: string): Promise<IComment>;
     deleteComment(CommentId: string): Promise<IComment>;
 }

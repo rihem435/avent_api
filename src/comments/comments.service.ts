@@ -42,7 +42,13 @@ export class CommentsService {
       }
         return CommentData;
 }
-
+ async findAllByEventAndUser(eventId: string, userId: string): Promise<IComment[]> {
+    const comments = await this.CommentsModel.find({ eventId, userId }).populate('user_id');
+    if (!comments || comments.length === 0) {
+      throw new NotFoundException('Comments not found for the event and user.');
+    }
+    return comments;
+  }
   async getComment (CommentId: string): Promise<IComment> {
     const existingComment = await this.CommentsModel.findById(CommentId).exec();
       if (!existingComment) {

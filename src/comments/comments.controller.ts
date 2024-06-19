@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Put, Res, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put, Res, HttpStatus, NotFoundException } from '@nestjs/common';
 import { CommentsService } from './comments.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
@@ -13,7 +13,23 @@ export class CommentsController {
     createComment(@Body() createCommentDto: CreateCommentDto) {
       return this.commentsService.createComment(createCommentDto);
     }
-
+    @Get('Byid/:eventId/:userId')
+    async findAllByEventAndUser(
+      @Param('eventId') eventId: string,
+      @Param('userId') userId: string,
+    ) {
+      try {
+        const commentsData = await this.commentsService.findAllByEventAndUser(eventId, userId);
+        return {
+          message: 'Comments Data found successfully',
+          status: HttpStatus.OK,
+          data: commentsData,
+        };
+      } catch (error) {
+        throw new NotFoundException(error.message);
+      }
+    }
+  
     @Get()
     async findAll(@Res() response) {
       try {

@@ -42,6 +42,13 @@ let CommentsService = class CommentsService {
         }
         return CommentData;
     }
+    async findAllByEventAndUser(eventId, userId) {
+        const comments = await this.CommentsModel.find({ eventId, userId }).populate('user_id');
+        if (!comments || comments.length === 0) {
+            throw new common_1.NotFoundException('Comments not found for the event and user.');
+        }
+        return comments;
+    }
     async getComment(CommentId) {
         const existingComment = await this.CommentsModel.findById(CommentId).exec();
         if (!existingComment) {

@@ -24,6 +24,19 @@ let CommentsController = class CommentsController {
     createComment(createCommentDto) {
         return this.commentsService.createComment(createCommentDto);
     }
+    async findAllByEventAndUser(eventId, userId) {
+        try {
+            const commentsData = await this.commentsService.findAllByEventAndUser(eventId, userId);
+            return {
+                message: 'Comments Data found successfully',
+                status: common_1.HttpStatus.OK,
+                data: commentsData,
+            };
+        }
+        catch (error) {
+            throw new common_1.NotFoundException(error.message);
+        }
+    }
     async findAll(response) {
         try {
             const commentsData = await this.commentsService.getAllComment();
@@ -59,6 +72,14 @@ __decorate([
     __metadata("design:paramtypes", [create_comment_dto_1.CreateCommentDto]),
     __metadata("design:returntype", void 0)
 ], CommentsController.prototype, "createComment", null);
+__decorate([
+    (0, common_1.Get)('Byid/:eventId/:userId'),
+    __param(0, (0, common_1.Param)('eventId')),
+    __param(1, (0, common_1.Param)('userId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], CommentsController.prototype, "findAllByEventAndUser", null);
 __decorate([
     (0, common_1.Get)(),
     __param(0, (0, common_1.Res)()),
