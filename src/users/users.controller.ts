@@ -46,7 +46,7 @@ export class UsersController {
                              }),
                              }),)
   @Put(':id')
-  async  updateUser(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto,@UploadedFile()file) {
+  async  updateUser(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto,@UploadedFile() file) {
       if(file==undefined|| file==null){
         if(updateUserDto.user_password==undefined){
           updateUserDto.user_password=(await this.usersService.getUser(id)).user_password
