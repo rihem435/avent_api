@@ -55,5 +55,8 @@ export class EventsService {
           return deleteEvent;
 
   }
-
+  async  findEventByUser(user_id: string):Promise<IEvent[]> {
+    const EventByUser=await this.EventModel.find({user_id});
+    return EventByUser
+   }
  }

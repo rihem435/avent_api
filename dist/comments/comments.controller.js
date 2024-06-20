@@ -24,17 +24,21 @@ let CommentsController = class CommentsController {
     createComment(createCommentDto) {
         return this.commentsService.createComment(createCommentDto);
     }
-    async findAllByEventAndUser(eventId, userId) {
+    async findAllByEventAndUser(user_id, event_id, response) {
         try {
-            const commentsData = await this.commentsService.findAllByEventAndUser(eventId, userId);
-            return {
-                message: 'Comments Data found successfully',
+            const EventByUser = await this.commentsService.findAllByEventAndUser(user_id, event_id);
+            return response.status(common_1.HttpStatus.OK).json({
+                message: "comments found succefully with id user",
                 status: common_1.HttpStatus.OK,
-                data: commentsData,
-            };
+                data: EventByUser,
+            });
         }
         catch (error) {
-            throw new common_1.NotFoundException(error.message);
+            return response.status(common_1.HttpStatus.BAD_REQUEST).json({
+                message: error.message,
+                status: common_1.HttpStatus.BAD_REQUEST,
+                data: null
+            });
         }
     }
     async findAll(response) {
@@ -73,11 +77,12 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CommentsController.prototype, "createComment", null);
 __decorate([
-    (0, common_1.Get)('Byid/:eventId/:userId'),
-    __param(0, (0, common_1.Param)('eventId')),
-    __param(1, (0, common_1.Param)('userId')),
+    (0, common_1.Get)(':user_id/:event_id'),
+    __param(0, (0, common_1.Param)('user_id')),
+    __param(1, (0, common_1.Param)('event_id')),
+    __param(2, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:paramtypes", [String, String, Object]),
     __metadata("design:returntype", Promise)
 ], CommentsController.prototype, "findAllByEventAndUser", null);
 __decorate([

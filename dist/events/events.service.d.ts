@@ -36,4 +36,5 @@ export declare class EventsService {
     getAllEvent(): Promise<IEvent[]>;
     getEvent(EventId: string): Promise<IEvent>;
     deleteEvent(EventId: string): Promise<IEvent>;
+    findEventByUser(user_id: string): Promise<IEvent[]>;
 }

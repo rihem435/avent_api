@@ -5,6 +5,7 @@ export declare class EventsController {
     private readonly eventsService;
     constructor(eventsService: EventsService);
     createEvent(createEventDto: CreateEventDto, files: any): Promise<import("src/events/interface/events.interface").IEvent>;
+    findEventByUser(user_id: string, response: any): Promise<any>;
     getAllEvent(response: any): Promise<any>;
     getEvent(id: string): Promise<import("src/events/interface/events.interface").IEvent>;
     updateEvent(id: string, updateEventDto: UpdateEventDto): Promise<import("src/events/interface/events.interface").IEvent>;

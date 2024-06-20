@@ -28,6 +28,23 @@ let EventsController = class EventsController {
         createEventDto.event_galleries = files.map(item => item.filename);
         return this.eventsService.createEvent(createEventDto);
     }
+    async findEventByUser(user_id, response) {
+        try {
+            const EventByUser = await this.eventsService.findEventByUser(user_id);
+            return response.status(common_1.HttpStatus.OK).json({
+                message: "events found succefully with id user",
+                status: common_1.HttpStatus.OK,
+                data: EventByUser,
+            });
+        }
+        catch (error) {
+            return response.status(common_1.HttpStatus.BAD_REQUEST).json({
+                message: error.message,
+                status: common_1.HttpStatus.BAD_REQUEST,
+                data: null
+            });
+        }
+    }
     async getAllEvent(response) {
         try {
             const data = await this.eventsService.getAllEvent();
@@ -71,6 +88,14 @@ __decorate([
     __metadata("design:paramtypes", [create_event_dto_1.CreateEventDto, Object]),
     __metadata("design:returntype", void 0)
 ], EventsController.prototype, "createEvent", null);
+__decorate([
+    (0, common_1.Get)(':user_id'),
+    __param(0, (0, common_1.Param)('user_id')),
+    __param(1, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], EventsController.prototype, "findEventByUser", null);
 __decorate([
     (0, common_1.Get)(),
     __param(0, (0, common_1.Res)()),

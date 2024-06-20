@@ -25,7 +25,25 @@ export class EventsController {
      createEventDto.event_galleries = files.map(item=>item.filename);
         return this.eventsService.createEvent(createEventDto);
   }
+  @Get(':user_id')
+  async findEventByUser(@Param('user_id')user_id:string,@Res()response){
+    try {
+      const EventByUser = await this.eventsService.findEventByUser(user_id)
+      return response.status(HttpStatus.OK).json({
+        message:"events found succefully with id user",
+        status:HttpStatus.OK,
+        data:EventByUser,
+      })
+    } catch (error) {
+      return response.status(HttpStatus.BAD_REQUEST).json({
+        message: error.message,
+        status: HttpStatus.BAD_REQUEST,
+        data: null
+      })
 
+
+    }
+  }
   /* -- Méthode "Get" de routage d'affichage -- */
   @Get()
     async getAllEvent(@Res() response) {

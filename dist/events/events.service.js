@@ -54,6 +54,10 @@ let EventsService = class EventsService {
         }
         return deleteEvent;
     }
+    async findEventByUser(user_id) {
+        const EventByUser = await this.EventModel.find({ user_id });
+        return EventByUser;
+    }
 };
 exports.EventsService = EventsService;
 exports.EventsService = EventsService = __decorate([
