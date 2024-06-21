@@ -8,6 +8,6 @@ export declare class EventsController {
     findEventByUser(user_id: string, response: any): Promise<any>;
     getAllEvent(response: any): Promise<any>;
     getEvent(id: string): Promise<import("src/events/interface/events.interface").IEvent>;
-    updateEvent(id: string, updateEventDto: UpdateEventDto): Promise<import("src/events/interface/events.interface").IEvent>;
+    updateEventsx(updateEventsDto: UpdateEventDto, id: string, files: any): Promise<import("src/events/interface/events.interface").IEvent>;
     deleteEvent(id: string): Promise<import("src/events/interface/events.interface").IEvent>;
 }

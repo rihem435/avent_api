@@ -33,6 +33,7 @@ export declare class UsersService {
     createUser(createUserDto: CreateUserDto): Promise<IUser>;
     findByUsername(user_name: string): Promise<IUser>;
     findByEmail(email: string): Promise<IUser>;
+    findOneUser(id: string): Promise<IUser>;
     updateUser(UserId: string, updateUserDto: UpdateUserDto): Promise<IUser>;
     getAllUser(): Promise<IUser[]>;
     getUser(UserId: string): Promise<IUser>;
@@ -40,5 +41,4 @@ export declare class UsersService {
     sendMail(to: string, from: string, subject: string, content: string): Promise<void>;
     verifyUserByCode(code: string): Promise<IUser>;
     confirmation_user_account(id: string): Promise<IUser>;
-    updatePassword(userId: string, newPassword: string): Promise<void>;
 }

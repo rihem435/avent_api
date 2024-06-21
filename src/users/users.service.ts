@@ -41,7 +41,13 @@ export class UsersService {
   async findByEmail(email: string): Promise<IUser> {
     return this.UserModel.findOne({ user_email: email }).exec();
   }
-
+  async findOneUser(id: string): Promise<IUser> {
+    const oneUser=await this.UserModel.findById(id)
+    if (!oneUser){
+      throw new NotFoundException("user does not found")
+    }
+    return oneUser
+  }
 
 
   async updateUser(UserId: string, updateUserDto: UpdateUserDto): Promise<IUser> {
@@ -124,18 +130,6 @@ export class UsersService {
     return user;
 
   }
-  async updatePassword(userId: string, newPassword: string): Promise<void> {
-    // Recherchez l'utilisateur par son ID
-    const utilisateur = await this.UserModel.findById(userId);
-
-    // Vérifiez si l'utilisateur existe
-    if (!utilisateur) {
-      throw new Error(' User not found');
-    }
-
-    // Mettre à jour le mot de passe de l'utilisateur
-    utilisateur.user_password = newPassword;
-    await utilisateur.save();
-  }
+ 
 
 }

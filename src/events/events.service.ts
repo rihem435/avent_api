@@ -31,6 +31,7 @@ export class EventsService {
       return existingEvent;
   }
   
+  
   async getAllEvent(): Promise <IEvent[]> {
     const EventData= await this.EventModel.find().populate({path:"comments",populate:{path:'user_id'}})
 
@@ -62,7 +63,7 @@ export class EventsService {
 
   }
   async  findEventByUser(user_id: string):Promise<IEvent[]> {
-    const EventByUser=await this.EventModel.find({user_id});
+    const EventByUser=await this.EventModel.find({user_id}).populate({path:"comments",populate:{path:'user_id'}});
     return EventByUser
    }
 

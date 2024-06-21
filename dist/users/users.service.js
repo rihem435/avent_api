@@ -38,6 +38,13 @@ let UsersService = class UsersService {
     async findByEmail(email) {
         return this.UserModel.findOne({ user_email: email }).exec();
     }
+    async findOneUser(id) {
+        const oneUser = await this.UserModel.findById(id);
+        if (!oneUser) {
+            throw new common_1.NotFoundException("user does not found");
+        }
+        return oneUser;
+    }
     async updateUser(UserId, updateUserDto) {
         const existingUser = await this.UserModel.findByIdAndUpdate(UserId, updateUserDto, { new: true });
         if (!existingUser) {
@@ -100,14 +107,6 @@ let UsersService = class UsersService {
         await this.transporter.sendMail(mailOptions);
         console.log("first");
         return user;
-    }
-    async updatePassword(userId, newPassword) {
-        const utilisateur = await this.UserModel.findById(userId);
-        if (!utilisateur) {
-            throw new Error(' User not found');
-        }
-        utilisateur.user_password = newPassword;
-        await utilisateur.save();
     }
 };
 exports.UsersService = UsersService;

@@ -71,9 +71,19 @@ export class EventsController {
   }
 
   @Put(':id')
-    updateEvent(@Param('id') id: string, @Body() updateEventDto: UpdateEventDto) {
-      return this.eventsService.updateEvent(id, updateEventDto);
-  }
+  @UseInterceptors(
+    FilesInterceptor('files', 6, {
+      storage: diskStorage({
+        destination: './upload/events',
+        filename: (_request, files, callback) =>
+          callback(null, `${new Date().getTime()}-${files.originalname}`),
+                             }),
+                             }),)
+                          
+ async  updateEventsx(@Body()updateEventsDto:UpdateEventDto, @Param('id') id:string, @UploadedFiles() files) {
+     updateEventsDto.event_galleries = files.map(item=>item.filename);
+        return this.eventsService.updateEvent(id, updateEventsDto);
+   }
 
   @Delete(':id')
     deleteEvent(@Param('id') id: string) {

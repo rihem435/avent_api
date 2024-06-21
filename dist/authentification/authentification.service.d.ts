@@ -3,6 +3,7 @@ import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
+import { UpdateUserDto } from 'src/users/dto/update-user.dto';
 export declare class AuthentificationService {
     private userService;
     private jwtService;
@@ -28,4 +29,11 @@ export declare class AuthentificationService {
     refreshTokens(userId: string, refreshToken: string): Promise<void>;
     hashData(data: string): Promise<string>;
     updateRefreshToken(userId: string, refreshToken: string): Promise<void>;
+    updatePassword(userId: string, UpdateUserDto: UpdateUserDto): Promise<{
+        user: import("src/users/interface/users.interface").IUser;
+        token: {
+            accessToken: string;
+            refreshToken: string;
+        };
+    }>;
 }

@@ -55,7 +55,7 @@ let EventsService = class EventsService {
         return deleteEvent;
     }
     async findEventByUser(user_id) {
-        const EventByUser = await this.EventModel.find({ user_id });
+        const EventByUser = await this.EventModel.find({ user_id }).populate({ path: "comments", populate: { path: 'user_id' } });
         return EventByUser;
     }
 };

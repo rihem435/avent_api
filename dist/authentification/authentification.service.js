@@ -91,6 +91,18 @@ let AuthentificationService = class AuthentificationService {
         await this.userService.updateUser(userId, { refreshtoken: hashedRefreshToken,
         });
     }
+    async updatePassword(userId, UpdateUserDto) {
+        const oneuser = await this.userService.findOneUser(userId);
+        if (!oneuser)
+            throw new common_1.NotFoundException("user not found");
+        const hashedPassword = await argon2.hash(UpdateUserDto.user_password);
+        const user = await this.userService.updateUser(userId, {
+            ...UpdateUserDto,
+            user_password: hashedPassword
+        });
+        const token = await this.getTokens(oneuser._id, oneuser.user_email);
+        return { user, token };
+    }
 };
 exports.AuthentificationService = AuthentificationService;
 exports.AuthentificationService = AuthentificationService = __decorate([

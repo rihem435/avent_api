@@ -1,4 +1,4 @@
-import { BadRequestException, ForbiddenException, Injectable } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAuthentificationDto } from './dto/login.dto';
 /*-- import { UpdateAuthentificationDto } from './dto/update-authentification.dto'; --*/
 import { UsersService } from 'src/users/users.service';
@@ -7,6 +7,7 @@ import { ConfigService } from '@nestjs/config';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import * as argon2 from "argon2";
 import { Console } from 'console';
+import { UpdateUserDto } from 'src/users/dto/update-user.dto';
 
 @Injectable()
 export class AuthentificationService {
@@ -127,7 +128,18 @@ export class AuthentificationService {
 
       });
     }
+    async updatePassword(userId:string , UpdateUserDto :UpdateUserDto){
+      const oneuser= await this.userService.findOneUser(userId)
+      if(!oneuser) throw new NotFoundException("user not found")
+      const hashedPassword=await argon2.hash(UpdateUserDto.user_password)
+  const user=  await this.userService.updateUser(userId ,{
+      ...UpdateUserDto,
+      user_password:hashedPassword
+  })
+  const token=await this.getTokens(oneuser._id, oneuser.user_email)
+  return {user, token}
 
+  }
 
   }
 

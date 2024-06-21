@@ -10,6 +10,7 @@ import { RefreshTokenGuard } from './guards/refrechToken.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { Request } from 'express';
+import { UpdateUserDto } from 'src/users/dto/update-user.dto';
 
 @Controller('authentification')
 export class AuthentificationController {
@@ -41,7 +42,12 @@ export class AuthentificationController {
   logout(@Req() req: Request) {
     this.authentificationService.logOut(req.user['sub']);
   }
-  
+  @UseGuards(AccessTokenGuard)
+  @Patch("updatepassword/:id")
+  async newPassword(@Body() updateUserDto:UpdateUserDto, @Param('id') id:string){
+    await this.authentificationService.updatePassword(id, updateUserDto )
+
+  }
 
   @UseGuards(RefreshTokenGuard)
   @Get('refresh')

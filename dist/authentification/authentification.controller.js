@@ -21,6 +21,7 @@ const accessToken_guard_1 = require("./guards/accessToken.guard");
 const refrechToken_guard_1 = require("./guards/refrechToken.guard");
 const platform_express_1 = require("@nestjs/platform-express");
 const multer_1 = require("multer");
+const update_user_dto_1 = require("../users/dto/update-user.dto");
 let AuthentificationController = class AuthentificationController {
     constructor(authentificationService) {
         this.authentificationService = authentificationService;
@@ -34,6 +35,9 @@ let AuthentificationController = class AuthentificationController {
     }
     logout(req) {
         this.authentificationService.logOut(req.user['sub']);
+    }
+    async newPassword(updateUserDto, id) {
+        await this.authentificationService.updatePassword(id, updateUserDto);
     }
     refreshTokens(req) {
         const userId = req.user['sub'];
@@ -71,6 +75,15 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], AuthentificationController.prototype, "logout", null);
+__decorate([
+    (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
+    (0, common_1.Patch)("updatepassword/:id"),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [update_user_dto_1.UpdateUserDto, String]),
+    __metadata("design:returntype", Promise)
+], AuthentificationController.prototype, "newPassword", null);
 __decorate([
     (0, common_1.UseGuards)(refrechToken_guard_1.RefreshTokenGuard),
     (0, common_1.Get)('refresh'),

@@ -65,8 +65,9 @@ let EventsController = class EventsController {
     getEvent(id) {
         return this.eventsService.getEvent(id);
     }
-    updateEvent(id, updateEventDto) {
-        return this.eventsService.updateEvent(id, updateEventDto);
+    async updateEventsx(updateEventsDto, id, files) {
+        updateEventsDto.event_galleries = files.map(item => item.filename);
+        return this.eventsService.updateEvent(id, updateEventsDto);
     }
     deleteEvent(id) {
         return this.eventsService.deleteEvent(id);
@@ -112,12 +113,19 @@ __decorate([
 ], EventsController.prototype, "getEvent", null);
 __decorate([
     (0, common_1.Put)(':id'),
-    __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FilesInterceptor)('files', 6, {
+        storage: (0, multer_1.diskStorage)({
+            destination: './upload/events',
+            filename: (_request, files, callback) => callback(null, `${new Date().getTime()}-${files.originalname}`),
+        }),
+    })),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Param)('id')),
+    __param(2, (0, common_1.UploadedFiles)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_event_dto_1.UpdateEventDto]),
-    __metadata("design:returntype", void 0)
-], EventsController.prototype, "updateEvent", null);
+    __metadata("design:paramtypes", [update_event_dto_1.UpdateEventDto, String, Object]),
+    __metadata("design:returntype", Promise)
+], EventsController.prototype, "updateEventsx", null);
 __decorate([
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id')),
