@@ -53,5 +53,8 @@ export class MembersService {
           return deleteMember;
 
   }
-
+  async  findUserByComment(comments: string):Promise<IMember[]> {
+    const userByComment=await this.MemberModel.find({comments});
+    return userByComment
+   }
 }

@@ -34,7 +34,7 @@ let EventsService = class EventsService {
         return existingEvent;
     }
     async getAllEvent() {
-        const EventData = await this.EventModel.find();
+        const EventData = await this.EventModel.find().populate({ path: "comments", populate: { path: 'user_id' } });
         if (!EventData || EventData.length == 0) {
             throw new common_1.NotFoundException('Events data not found!');
         }

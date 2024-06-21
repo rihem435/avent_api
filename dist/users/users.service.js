@@ -77,7 +77,7 @@ let UsersService = class UsersService {
             from: from,
             to,
             subject,
-            text: " votre code est " + code,
+            text: " Your code is " + code,
         };
         console.log(`code ${code}`);
         await this.transporter.sendMail(mailOptions);
@@ -94,8 +94,8 @@ let UsersService = class UsersService {
         const mailOptions = {
             from: "tekaya.taoufik.mohamed@gmail.com",
             to: user.user_email,
-            subject: "confirmation account",
-            text: " Your user account has been approuved by the application admin ",
+            subject: " confirmation account ",
+            text: " Your user account has been approuved by the adminstrator ",
         };
         await this.transporter.sendMail(mailOptions);
         console.log("first");
@@ -104,7 +104,7 @@ let UsersService = class UsersService {
     async updatePassword(userId, newPassword) {
         const utilisateur = await this.UserModel.findById(userId);
         if (!utilisateur) {
-            throw new Error('Utilisateur non trouvé');
+            throw new Error(' User not found');
         }
         utilisateur.user_password = newPassword;
         await utilisateur.save();

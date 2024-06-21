@@ -15,12 +15,12 @@ export class CommentsService {
   async createComment(createCommentDto: CreateCommentDto): Promise<IComment> {
 
     const newComment = await new this.CommentsModel(createCommentDto);
+console.log(`comment--------- ${newComment}`)
+    /*-- Déclaration d'un remplissage automatique d'un tableau --*/
+    await this.UserModel.findByIdAndUpdate(createCommentDto.user_id, { $push: { comments: newComment } });
 
     /*-- Déclaration d'un remplissage automatique d'un tableau --*/
-    await this.UserModel.findByIdAndUpdate(createCommentDto.id_user, { $push: { comments: newComment } });
-
-    /*-- Déclaration d'un remplissage automatique d'un tableau --*/
-    await this.EventModel.findByIdAndUpdate(createCommentDto.id_event, { $push: { comments: newComment } });
+    await this.EventModel.findByIdAndUpdate(createCommentDto.event_id, { $push: { comments: newComment } });
 
     return newComment.save();
 
@@ -67,5 +67,8 @@ export class CommentsService {
     return deleteComment;
 
   }
-
+  async  findCommentsByEvents(event_id: string):Promise<IComment[]> {
+    const CommentsByEvents=await this.CommentsModel.find({event_id}).populate('user_id');
+    return CommentsByEvents
+   }
 }

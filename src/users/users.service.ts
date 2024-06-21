@@ -88,7 +88,7 @@ export class UsersService {
       from: from,
       to,
       subject,
-      text: " votre code est " + code,
+      text: " Your code is " + code,
     };
     console.log(`code ${code}`)
     await this.transporter.sendMail(mailOptions);
@@ -112,9 +112,9 @@ export class UsersService {
       from: "tekaya.taoufik.mohamed@gmail.com",
       to: user.user_email,
 
-      subject: "confirmation account",
+      subject: " confirmation account ",
 
-      text: " Your user account has been approuved by the application admin ",
+      text: " Your user account has been approuved by the adminstrator ",
     };
 
     await this.transporter.sendMail(mailOptions);
@@ -130,7 +130,7 @@ export class UsersService {
 
     // Vérifiez si l'utilisateur existe
     if (!utilisateur) {
-      throw new Error('Utilisateur non trouvé');
+      throw new Error(' User not found');
     }
 
     // Mettre à jour le mot de passe de l'utilisateur

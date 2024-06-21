@@ -34,4 +34,5 @@ export declare class MembersService {
     getAllMember(): Promise<IMember[]>;
     getMember(MemberId: string): Promise<IMember>;
     deleteMember(MemberId: string): Promise<IMember>;
+    findUserByComment(comments: string): Promise<IMember[]>;
 }

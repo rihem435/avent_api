@@ -39,8 +39,23 @@ export class AdminstratorsController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateAdminstratorDto: UpdateAdminstratorDto) {
-    return this.adminstratorsService.updateAdminstrator(id, updateAdminstratorDto);
+  @UseInterceptors(
+    FileInterceptor('file', {
+      storage: diskStorage({
+        destination: './upload/users',
+        filename: (_request, file, callback) =>
+          callback(null, `${new Date().getTime()}-${file.originalname}`),
+                             }),
+                             }),)
+
+  updateImagesGalleriesEvents(@Body() updateAdminstratorDto:UpdateAdminstratorDto, @Param('id') id:string, @UploadedFile() file) {
+    updateAdminstratorDto.user_profile_photo = file.filename;
+        return this.adminstratorsService.updateAdminstrator(id, updateAdminstratorDto);
+  }
+
+
+    updateEvent(@Param('id') id: string, @Body() updateAdminstratorDto: UpdateAdminstratorDto) {
+      return this.adminstratorsService.updateAdminstrator(id, updateAdminstratorDto);
   }
 
   @Delete(':id')

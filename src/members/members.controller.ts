@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Put, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put, UseInterceptors, UploadedFile, Res, HttpStatus } from '@nestjs/common';
 import { MembersService } from './members.service';
 import { CreateMemberDto } from './dto/create-member.dto';
 import { UpdateMemberDto } from './dto/update-member.dto';
@@ -36,7 +36,7 @@ export class MembersController {
   findAll() {
     return this.membersService.getAllMember();
   }
-
+  
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.membersService.getMember(id);

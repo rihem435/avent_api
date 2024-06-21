@@ -32,7 +32,13 @@ export class EventsService {
   }
   
   async getAllEvent(): Promise <IEvent[]> {
-    const EventData= await this.EventModel.find();
+    const EventData= await this.EventModel.find().populate({path:"comments",populate:{path:'user_id'}})
+
+
+
+
+
+    ;
       if (!EventData|| EventData.length == 0) {
         throw new NotFoundException('Events data not found!');
       }
@@ -59,4 +65,6 @@ export class EventsService {
     const EventByUser=await this.EventModel.find({user_id});
     return EventByUser
    }
+
+   
  }

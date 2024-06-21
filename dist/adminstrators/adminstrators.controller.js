@@ -33,7 +33,11 @@ let AdminstratorsController = class AdminstratorsController {
     findOne(id) {
         return this.adminstratorsService.getAdminstrator(id);
     }
-    update(id, updateAdminstratorDto) {
+    updateImagesGalleriesEvents(updateAdminstratorDto, id, file) {
+        updateAdminstratorDto.user_profile_photo = file.filename;
+        return this.adminstratorsService.updateAdminstrator(id, updateAdminstratorDto);
+    }
+    updateEvent(id, updateAdminstratorDto) {
         return this.adminstratorsService.updateAdminstrator(id, updateAdminstratorDto);
     }
     remove(id) {
@@ -70,12 +74,26 @@ __decorate([
 ], AdminstratorsController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Put)(':id'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file', {
+        storage: (0, multer_1.diskStorage)({
+            destination: './upload/users',
+            filename: (_request, file, callback) => callback(null, `${new Date().getTime()}-${file.originalname}`),
+        }),
+    })),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Param)('id')),
+    __param(2, (0, common_1.UploadedFile)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [update_adminstrator_dto_1.UpdateAdminstratorDto, String, Object]),
+    __metadata("design:returntype", void 0)
+], AdminstratorsController.prototype, "updateImagesGalleriesEvents", null);
+__decorate([
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, update_adminstrator_dto_1.UpdateAdminstratorDto]),
     __metadata("design:returntype", void 0)
-], AdminstratorsController.prototype, "update", null);
+], AdminstratorsController.prototype, "updateEvent", null);
 __decorate([
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id')),
