@@ -39,4 +39,5 @@ export declare class CommentsService {
     findAllByEventAndUser(user_id: any, event_id: any): Promise<IComment[]>;
     getComment(CommentId: string): Promise<IComment>;
     deleteComment(CommentId: string): Promise<IComment>;
+    findCommentsByEvents(event_id: string): Promise<IComment[]>;
 }

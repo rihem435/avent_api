@@ -5,12 +5,12 @@ export class CreateCommentDto {
    /*-- Déclaration --*/
    @IsString()
    @IsNotEmpty()
-   id_user: string;
+   user_id: string;
    
    /*-- Déclaration --*/
    @IsString()
    @IsNotEmpty()
-   id_event: string;
+   event_id: string;
 
    @IsString()
    @IsNotEmpty()

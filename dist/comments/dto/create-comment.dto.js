@@ -18,12 +18,12 @@ __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], CreateCommentDto.prototype, "id_user", void 0);
+], CreateCommentDto.prototype, "user_id", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], CreateCommentDto.prototype, "id_event", void 0);
+], CreateCommentDto.prototype, "event_id", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),

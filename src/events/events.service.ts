@@ -59,4 +59,6 @@ export class EventsService {
     const EventByUser=await this.EventModel.find({user_id});
     return EventByUser
    }
+
+   
  }

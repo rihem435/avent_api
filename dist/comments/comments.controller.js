@@ -58,6 +58,23 @@ let CommentsController = class CommentsController {
             });
         }
     }
+    async findCommentsByEvents(event_id, response) {
+        try {
+            const CommentsByEvents = await this.commentsService.findCommentsByEvents(event_id);
+            return response.status(common_1.HttpStatus.OK).json({
+                message: "comments found succefully with event",
+                status: common_1.HttpStatus.OK,
+                data: CommentsByEvents,
+            });
+        }
+        catch (error) {
+            return response.status(common_1.HttpStatus.BAD_REQUEST).json({
+                message: error.message,
+                status: common_1.HttpStatus.BAD_REQUEST,
+                data: null
+            });
+        }
+    }
     getComment(id) {
         return this.commentsService.getComment(id);
     }
@@ -92,6 +109,14 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], CommentsController.prototype, "findAll", null);
+__decorate([
+    (0, common_1.Get)(':event_id'),
+    __param(0, (0, common_1.Param)('event_id')),
+    __param(1, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], CommentsController.prototype, "findCommentsByEvents", null);
 __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),

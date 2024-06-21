@@ -53,7 +53,25 @@ export class CommentsController {
     }
 
   }
+  @Get(':event_id')
+  async findCommentsByEvents(@Param('event_id')event_id:string,@Res()response){
+    try {
+      const CommentsByEvents = await this.commentsService.findCommentsByEvents(event_id)
+      return response.status(HttpStatus.OK).json({
+        message:"comments found succefully with event",
+        status:HttpStatus.OK,
+        data:CommentsByEvents,
+      })
+    } catch (error) {
+      return response.status(HttpStatus.BAD_REQUEST).json({
+        message: error.message,
+        status: HttpStatus.BAD_REQUEST,
+        data: null
+      })
 
+
+    }
+  }
   @Get(':id')
   getComment(@Param('id') id: string) {
     return this.commentsService.getComment(id);

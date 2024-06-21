@@ -7,6 +7,7 @@ export declare class CommentsController {
     createComment(createCommentDto: CreateCommentDto): Promise<import("src/comments/interface/comments.interface").IComment>;
     findAllByEventAndUser(user_id: string, event_id: string, response: any): Promise<any>;
     findAll(response: any): Promise<any>;
+    findCommentsByEvents(event_id: string, response: any): Promise<any>;
     getComment(id: string): Promise<import("src/comments/interface/comments.interface").IComment>;
     updateComment(id: string, updateCommentDto: UpdateCommentDto): Promise<import("src/comments/interface/comments.interface").IComment>;
     deleteComment(id: string): Promise<import("src/comments/interface/comments.interface").IComment>;

@@ -53,6 +53,10 @@ let MembersService = class MembersService {
         }
         return deleteMember;
     }
+    async findUserByComment(comments) {
+        const userByComment = await this.MemberModel.find({ comments });
+        return userByComment;
+    }
 };
 exports.MembersService = MembersService;
 exports.MembersService = MembersService = __decorate([

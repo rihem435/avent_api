@@ -24,8 +24,9 @@ let CommentsService = class CommentsService {
     }
     async createComment(createCommentDto) {
         const newComment = await new this.CommentsModel(createCommentDto);
-        await this.UserModel.findByIdAndUpdate(createCommentDto.id_user, { $push: { comments: newComment } });
-        await this.EventModel.findByIdAndUpdate(createCommentDto.id_event, { $push: { comments: newComment } });
+        console.log(`comment--------- ${newComment}`);
+        await this.UserModel.findByIdAndUpdate(createCommentDto.user_id, { $push: { comments: newComment } });
+        await this.EventModel.findByIdAndUpdate(createCommentDto.event_id, { $push: { comments: newComment } });
         return newComment.save();
     }
     async updateComment(CommentId, updateCommentDto) {
@@ -62,6 +63,10 @@ let CommentsService = class CommentsService {
             throw new common_1.NotFoundException('Comment #${CommentId} not found');
         }
         return deleteComment;
+    }
+    async findCommentsByEvents(event_id) {
+        const CommentsByEvents = await this.CommentsModel.find({ event_id });
+        return CommentsByEvents;
     }
 };
 exports.CommentsService = CommentsService;
