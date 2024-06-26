@@ -17,6 +17,12 @@ export class CreateEventDto {
    @IsString()
    @IsNotEmpty()
       event_time: string;
+   
+      @IsString()
+      @IsNotEmpty()
+         event_type: string;
+
+   
 
    @IsString()
    @IsNotEmpty()

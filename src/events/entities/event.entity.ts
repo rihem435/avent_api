@@ -5,6 +5,9 @@ import * as argon2 from "argon2";
 @Schema ({timestamps: true})
   export class EventEntity {
 
+    @Prop({required: false})  
+      event_parameters: string[];
+
     @Prop({required: true})  
       event_title: string;
   
@@ -19,10 +22,13 @@ import * as argon2 from "argon2";
     @Prop({required: true}) 
       event_time: string;
 
+    @Prop({required: true})  
+      event_type: string;
+
     @Prop({required: true}) 
       event_address: string;
 
-    @Prop ({required: false})
+    @Prop ({required: true})
       event_description: string;
 
     @Prop({required: true}) 
@@ -30,6 +36,14 @@ import * as argon2 from "argon2";
 
     @Prop({required: true}) 
       event_longitude_coordinates: string;
+
+    @Prop({required: false})  
+      event_forum: string[];
+
+    @Prop({required: false})  
+      event_discussion: string[];
+
+   
 
 
 
