@@ -41,6 +41,14 @@ export class CreateEventDto {
    @IsNotEmpty()
       event_description: string;
 
+      @IsString()
+      @IsNotEmpty()
+         event_forum: string;
+      
+      @IsString()
+      @IsNotEmpty()
+         event_discussion: string;
+
    @IsString()
    @IsNotEmpty()
     user_id: string;
