@@ -18,15 +18,35 @@ exports.EventEntity = EventEntity;
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
-], EventEntity.prototype, "event_name", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
-], EventEntity.prototype, "event_place", void 0);
+], EventEntity.prototype, "event_title", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", Array)
 ], EventEntity.prototype, "event_galleries", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], EventEntity.prototype, "event_date", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], EventEntity.prototype, "event_time", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], EventEntity.prototype, "event_address", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], EventEntity.prototype, "event_description", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], EventEntity.prototype, "event_latitude_coordinates", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], EventEntity.prototype, "event_longitude_coordinates", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ type: mongoose_2.SchemaTypes.ObjectId, ref: "users" }),
     __metadata("design:type", mongoose_2.Types.ObjectId)

@@ -6,13 +6,33 @@ import * as argon2 from "argon2";
 export class EventEntity {
 
   @Prop({required: true})  
-  event_name: string;
+  event_title: string;
   
   @Prop({required: true}) 
-  event_place: string;
+  event_galleries: string[];
+
+  
+  @Prop({required: true}) 
+  event_date: string;
+
 
   @Prop({required: true}) 
-  event_galleries: string[];
+  event_time: string;
+
+  @Prop({required: true}) 
+  event_address: string;
+
+  @Prop ({required: true})
+  event_description: string;
+
+  @Prop({required: true}) 
+  event_latitude_coordinates: string;
+
+  @Prop({required: true}) 
+  event_longitude_coordinates: string;
+
+
+
   
   /*-- Déclaration d'une relation bidirectionelle un à plusieurs --*/
   @Prop({type:SchemaTypes.ObjectId, ref:"users"})

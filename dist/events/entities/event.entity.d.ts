@@ -24,9 +24,14 @@
 /// <reference types="mongoose/types/inferschematype" />
 import { Document, Types } from "mongoose";
 export declare class EventEntity {
-    event_name: string;
-    event_place: string;
+    event_title: string;
     event_galleries: string[];
+    event_date: string;
+    event_time: string;
+    event_address: string;
+    event_description: string;
+    event_latitude_coordinates: string;
+    event_longitude_coordinates: string;
     user_id: Types.ObjectId;
     invitations: Types.ObjectId[];
     comments: Types.ObjectId[];

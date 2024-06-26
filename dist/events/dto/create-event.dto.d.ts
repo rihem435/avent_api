@@ -1,6 +1,11 @@
 export declare class CreateEventDto {
-    event_name: string;
-    readonly event_place: string;
+    event_title: string;
     event_galleries: string[];
+    event_date: string;
+    event_time: string;
+    event_address: string;
+    event_latitude_coordinates: string;
+    event_longitude_coordinates: string;
+    event_description: string;
     user_id: string;
 }

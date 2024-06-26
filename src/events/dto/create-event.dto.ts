@@ -4,17 +4,38 @@ export class CreateEventDto {
 
    @IsString()
    @IsNotEmpty()
-   event_name:string;
+   event_title:string;
 
    @IsString()
    @IsNotEmpty()
-   readonly event_place: string;
+      event_galleries: string[];
 
    @IsString()
    @IsNotEmpty()
-   event_galleries: string[];
+         event_date: string;   
 
    @IsString()
    @IsNotEmpty()
-   user_id: string;
+      event_time: string;
+
+   @IsString()
+   @IsNotEmpty()
+      event_address: string;
+   
+   @IsString()
+   @IsNotEmpty()
+      event_latitude_coordinates: string;
+
+   @IsString()
+   @IsNotEmpty()
+     event_longitude_coordinates: string;
+
+
+   @IsString()
+   @IsNotEmpty()
+      event_description: string;
+
+   @IsString()
+   @IsNotEmpty()
+    user_id: string;
 }
