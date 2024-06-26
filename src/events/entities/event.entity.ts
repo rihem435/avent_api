@@ -3,45 +3,45 @@ import {Document, SchemaType, SchemaTypes, Types} from "mongoose";
 import * as argon2 from "argon2";
 
 @Schema ({timestamps: true})
-export class EventEntity {
+  export class EventEntity {
 
-  @Prop({required: true})  
-  event_title: string;
+    @Prop({required: true})  
+      event_title: string;
   
-  @Prop({required: true}) 
-  event_galleries: string[];
+    @Prop({required: true}) 
+      event_galleries: string[];
 
   
-  @Prop({required: true}) 
-  event_date: string;
+    @Prop({required: true}) 
+      event_date: string;
 
 
-  @Prop({required: true}) 
-  event_time: string;
+    @Prop({required: true}) 
+      event_time: string;
 
-  @Prop({required: true}) 
-  event_address: string;
+    @Prop({required: true}) 
+      event_address: string;
 
-  @Prop ({required: false})
-  event_description: string;
+    @Prop ({required: false})
+      event_description: string;
 
-  @Prop({required: true}) 
-  event_latitude_coordinates: string;
+    @Prop({required: true}) 
+      event_latitude_coordinates: string;
 
-  @Prop({required: true}) 
-  event_longitude_coordinates: string;
+    @Prop({required: true}) 
+      event_longitude_coordinates: string;
 
 
 
   
   /*-- Déclaration d'une relation bidirectionelle un à plusieurs --*/
   @Prop({type:SchemaTypes.ObjectId, ref:"users"})
-  user_id:Types.ObjectId;
+    user_id:Types.ObjectId;
 
   @Prop([{type:SchemaTypes.ObjectId, ref:"invitations"}])
     invitations:Types.ObjectId[];
 
-    @Prop([{type:SchemaTypes.ObjectId, ref:"comments"}])
+  @Prop([{type:SchemaTypes.ObjectId, ref:"comments"}])
     comments:Types.ObjectId[];
   
 }
