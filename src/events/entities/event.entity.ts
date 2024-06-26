@@ -22,7 +22,7 @@ export class EventEntity {
   @Prop({required: true}) 
   event_address: string;
 
-  @Prop ({required: true})
+  @Prop ({required: false})
   event_description: string;
 
   @Prop({required: true}) 
