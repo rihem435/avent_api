@@ -3,33 +3,33 @@ import {IsBoolean, IsNotEmpty, IsNumber, IsString} from "class-validator";
 
 export class CreateUserDto {
 
-   @IsString()
-   @IsNotEmpty()
-   readonly user_civility_title: string;
+   // @IsString()
+   // @IsNotEmpty()
+   // readonly user_civility_title: string;
 
    @IsString()
    @IsNotEmpty()
    readonly user_first_name: string;
 
-   @IsString()
-   @IsNotEmpty()
-   readonly user_middle_name: string;
+   // @IsString()
+   // @IsNotEmpty()
+   // readonly user_middle_name: string;
 
    @IsString()
    @IsNotEmpty()
    readonly user_last_name: string;
 
-   @IsString()
-   @IsNotEmpty()
-   readonly user_pseudonym: string;
+   // @IsString()
+   // @IsNotEmpty()
+   // readonly user_pseudonym: string;
 
    @IsString()
    @IsNotEmpty()
    readonly user_birth_date: string;
    
-   @IsString()
-   @IsNotEmpty()
-      readonly user_gender: string;
+   // @IsString()
+   // @IsNotEmpty()
+   //    readonly user_gender: string;
 
    @IsString()
    @IsNotEmpty()

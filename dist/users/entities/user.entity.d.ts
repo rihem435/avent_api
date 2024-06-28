@@ -24,14 +24,9 @@
 /// <reference types="mongoose/types/inferschematype" />
 import { Document, Types } from "mongoose";
 export declare class UserEntity extends Document {
-    user_civility_title: string;
     user_first_name: string;
-    user_middle_name: string;
     user_last_name: string;
-    user_pseudonym: string;
     user_birth_date: string;
-    user_gender: string;
-    user_martial_status: string;
     user_email: string;
     user_code: string;
     user_password: string;

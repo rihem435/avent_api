@@ -37,8 +37,7 @@ import * as argon2 from "argon2";
     @Prop({required: true}) 
       event_longitude_coordinates: string;
 
-    @Prop({required: false})  
-      event_forum: string[];
+   
 
     @Prop({required: false})  
       event_discussion: string[];

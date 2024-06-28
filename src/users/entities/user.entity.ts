@@ -5,29 +5,29 @@ import * as argon2 from "argon2";
 @Schema ({timestamps: true, discriminatorKey: "role"})
 export class UserEntity extends Document {
 
-   @Prop ({required: true})
-   user_civility_title: string;
+   // @Prop ({required: true})
+   // user_civility_title: string;
 
    @Prop ({required: true})
    user_first_name: string;
 
-   @Prop ({required: true})
-   user_middle_name: string;
+   // @Prop ({required: true})
+   // user_middle_name: string;
 
    @Prop({required: true}) 
    user_last_name: string;
    
-   @Prop({required: true, unique: true}) 
-   user_pseudonym: string;
+   // @Prop({required: true, unique: true}) 
+   // user_pseudonym: string;
 
    @Prop({required: true}) 
    user_birth_date: string;
 
-   @Prop({required: true}) 
-   user_gender: string;
+   // @Prop({required: true}) 
+   // user_gender: string;
    
-   @Prop ({required: true})
-   user_martial_status: string; 
+   // @Prop ({required: true})
+   // user_martial_status: string; 
 
    @Prop({required: true, unique: true}) 
    user_email: string;

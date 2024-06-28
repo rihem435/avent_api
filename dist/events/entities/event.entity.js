@@ -16,6 +16,10 @@ let EventEntity = class EventEntity {
 };
 exports.EventEntity = EventEntity;
 __decorate([
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", Array)
+], EventEntity.prototype, "event_parameters", void 0);
+__decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
 ], EventEntity.prototype, "event_title", void 0);
@@ -34,6 +38,10 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
+], EventEntity.prototype, "event_type", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
 ], EventEntity.prototype, "event_address", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
@@ -47,6 +55,10 @@ __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
 ], EventEntity.prototype, "event_longitude_coordinates", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", Array)
+], EventEntity.prototype, "event_discussion", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ type: mongoose_2.SchemaTypes.ObjectId, ref: "users" }),
     __metadata("design:type", mongoose_2.Types.ObjectId)
