@@ -27,9 +27,11 @@ let MembersService = class MembersService {
     }
     async updateMember(MemberId, updateMemberDto) {
         const existingMember = await this.MemberModel.findByIdAndUpdate(MemberId, updateMemberDto, { new: true });
+        console.log(`update user---------------------------${existingMember}`);
         if (!existingMember) {
             throw new common_1.NotFoundException('Member #${MemberId} not found');
         }
+        console.log(`update user-222--------------------------${existingMember}`);
         return existingMember;
     }
     async getAllMember() {

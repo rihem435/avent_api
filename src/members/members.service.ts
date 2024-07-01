@@ -22,10 +22,11 @@ export class MembersService {
 
   async updateMember(MemberId: string, updateMemberDto: UpdateMemberDto): Promise<IMember> {
     const existingMember = await this.MemberModel.findByIdAndUpdate(MemberId, updateMemberDto, {new: true});
-  
+  console.log(`update user---------------------------${existingMember}`)
     if (!existingMember) {
       throw new NotFoundException('Member #${MemberId} not found');
-    }
+    }  console.log(`update user-222--------------------------${existingMember}`)
+
       return existingMember;
   }
   
