@@ -16,6 +16,7 @@ exports.AdminstratorsService = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
+const argon2 = require("argon2");
 let AdminstratorsService = class AdminstratorsService {
     constructor(AdminstratorModel) {
         this.AdminstratorModel = AdminstratorModel;
@@ -51,6 +52,22 @@ let AdminstratorsService = class AdminstratorsService {
             throw new common_1.NotFoundException('User #${UserId} not found');
         }
         return deleteAdminstrator;
+    }
+    hash_Data(data) { return argon2.hash(data).then(hash => { console.log('Generated hash:', hash); return hash; }); }
+    async updatePassword(adminId, updatePasswordDto) {
+        const { oldPassword, newPassword } = updatePasswordDto;
+        const admin = await this.AdminstratorModel.findById(adminId);
+        if (!admin) {
+            throw new common_1.BadRequestException('Admin not found');
+        }
+        console.log('Current password hash:', admin.user_password);
+        const isOldPasswordValid = await argon2.verify(admin.user_password, oldPassword);
+        if (!isOldPasswordValid) {
+            throw new common_1.BadRequestException('Old password is incorrect');
+        }
+        const newHashedPassword = await this.hash_Data(newPassword);
+        admin.user_password = newHashedPassword;
+        await admin.save();
     }
 };
 exports.AdminstratorsService = AdminstratorsService;

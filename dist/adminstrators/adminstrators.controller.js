@@ -19,6 +19,7 @@ const create_adminstrator_dto_1 = require("./dto/create-adminstrator.dto");
 const update_adminstrator_dto_1 = require("./dto/update-adminstrator.dto");
 const platform_express_1 = require("@nestjs/platform-express");
 const multer_1 = require("multer");
+const update_pass_dto_1 = require("./dto/update-pass.dto");
 let AdminstratorsController = class AdminstratorsController {
     constructor(adminstratorsService) {
         this.adminstratorsService = adminstratorsService;
@@ -42,6 +43,20 @@ let AdminstratorsController = class AdminstratorsController {
     }
     remove(id) {
         return this.adminstratorsService.deleteAdminstrator(id);
+    }
+    async updatePassword(response, id, updatePasswordDto) {
+        try {
+            await this.adminstratorsService.updatePassword(id, updatePasswordDto);
+            return response.status(common_1.HttpStatus.OK).json({
+                message: 'Admin password has been updated',
+            });
+        }
+        catch (error) {
+            console.error('Error in updatePassword controller:', error);
+            return response.status(common_1.HttpStatus.INTERNAL_SERVER_ERROR).json({
+                statusCode: 500, message: 'Internal server error', error: 'Internal Server Error',
+            });
+        }
     }
 };
 exports.AdminstratorsController = AdminstratorsController;
@@ -101,6 +116,15 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], AdminstratorsController.prototype, "remove", null);
+__decorate([
+    (0, common_1.Put)('/update-pass/:id'),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Param)('id')),
+    __param(2, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, String, update_pass_dto_1.UpdatePasswordDto]),
+    __metadata("design:returntype", Promise)
+], AdminstratorsController.prototype, "updatePassword", null);
 exports.AdminstratorsController = AdminstratorsController = __decorate([
     (0, common_1.Controller)('adminstrators'),
     __metadata("design:paramtypes", [adminstrators_service_1.AdminstratorsService])

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Put, Param, Delete, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Param, Delete, UploadedFile, UseInterceptors, Res, HttpStatus } from '@nestjs/common';
 import { AdminstratorsService} from './adminstrators.service';
 import { CreateAdminstratorDto } from './dto/create-adminstrator.dto';
 import { UpdateAdminstratorDto } from './dto/update-adminstrator.dto';
@@ -6,13 +6,10 @@ import { file } from '@babel/types';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { string } from 'yargs';
-
+import { UpdatePasswordDto } from './dto/update-pass.dto';
 @Controller('adminstrators')
 export class AdminstratorsController {
   constructor(private readonly adminstratorsService: AdminstratorsService) {}
-
- 
-
   @Post()
   @UseInterceptors(
     FileInterceptor('file', {
@@ -22,22 +19,18 @@ export class AdminstratorsController {
           callback(null, `${new Date().getTime()}-${file.originalname}`),
                              }),
                              }),)
-
   create(@Body() createAdminstratorDto: CreateAdminstratorDto, @UploadedFile()file) {
     createAdminstratorDto.user_profile_photo=file.filename
     return this.adminstratorsService.createAdminstrator(createAdminstratorDto);
   }
-
   @Get()
   findAll() {
     return this.adminstratorsService.getAllAdminstrator();
   }
-
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.adminstratorsService.getAdminstrator(id);
   }
-
   @Put(':id')
   @UseInterceptors(
     FileInterceptor('file', {
@@ -47,21 +40,30 @@ export class AdminstratorsController {
           callback(null, `${new Date().getTime()}-${file.originalname}`),
                              }),
                              }),)
-
   updateImagesGalleriesEvents(@Body() updateAdminstratorDto:UpdateAdminstratorDto, @Param('id') id:string, @UploadedFile() file) {
     updateAdminstratorDto.user_profile_photo = file.filename;
         return this.adminstratorsService.updateAdminstrator(id, updateAdminstratorDto);
   }
-
-
     updateEvent(@Param('id') id: string, @Body() updateAdminstratorDto: UpdateAdminstratorDto) {
       return this.adminstratorsService.updateAdminstrator(id, updateAdminstratorDto);
   }
-
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.adminstratorsService.deleteAdminstrator(id)
-  
   }
-
+   /*Déclaration de l'appel de la focntion Password --*/
+   @Put('/update-pass/:id')
+    async updatePassword(@Res() response, @Param('id') id: string, @Body() updatePasswordDto: UpdatePasswordDto) {
+    try {
+      await this.adminstratorsService.updatePassword(id, updatePasswordDto);
+       return response.status(HttpStatus.OK).json({
+         message: 'Admin password has been updated', });
+        } catch (error) { console.error('Error in updatePassword controller:', error);
+           return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+             statusCode: 500, message: 'Internal server error', error: 'Internal Server Error', }); }
+           }
 }
+
+
+
+

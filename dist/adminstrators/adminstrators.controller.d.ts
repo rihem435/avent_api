@@ -1,6 +1,7 @@
 import { AdminstratorsService } from './adminstrators.service';
 import { CreateAdminstratorDto } from './dto/create-adminstrator.dto';
 import { UpdateAdminstratorDto } from './dto/update-adminstrator.dto';
+import { UpdatePasswordDto } from './dto/update-pass.dto';
 export declare class AdminstratorsController {
     private readonly adminstratorsService;
     constructor(adminstratorsService: AdminstratorsService);
@@ -10,4 +11,5 @@ export declare class AdminstratorsController {
     updateImagesGalleriesEvents(updateAdminstratorDto: UpdateAdminstratorDto, id: string, file: any): Promise<import("src/adminstrators/interface/adminstrators.interface").IAdminstrator>;
     updateEvent(id: string, updateAdminstratorDto: UpdateAdminstratorDto): Promise<import("src/adminstrators/interface/adminstrators.interface").IAdminstrator>;
     remove(id: string): Promise<import("src/adminstrators/interface/adminstrators.interface").IAdminstrator>;
+    updatePassword(response: any, id: string, updatePasswordDto: UpdatePasswordDto): Promise<any>;
 }
