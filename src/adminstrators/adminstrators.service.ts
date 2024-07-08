@@ -41,23 +41,7 @@ export class AdminstratorsService {
       }
           return deleteAdminstrator;
   }
-   /*-- Déclaration de la fonction de cryptage "hash_data"  ytilisant le processus de la méthode / technique "hashage" prédéfinit  --*/
-   hash_Data(data: string) { return argon2.hash(data).then(hash => { console.log('Generated hash:', hash); return hash; }); }
-      async updatePassword(adminId: string, updatePasswordDto: UpdatePasswordDto): Promise<void> {
-        const { oldPassword, newPassword } = updatePasswordDto;
-        const admin = await this.AdminstratorModel.findById(adminId);
-        if (!admin) {
-          throw new BadRequestException('Admin not found');
-        }
-        console.log('Current password hash:', admin.user_password);
-        const isOldPasswordValid = await argon2.verify(admin.user_password, oldPassword);
-        if (!isOldPasswordValid) {
-          throw new BadRequestException('Old password is incorrect');
-        }
-        const newHashedPassword = await this.hash_Data(newPassword);
-        admin.user_password = newHashedPassword;
-        await admin.save();
-      }
+   
 }
 
 

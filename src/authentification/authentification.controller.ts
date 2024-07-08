@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UploadedFile, UseGuards, Req, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UploadedFile, UseGuards, Req, UseInterceptors, HttpStatus, Res,  } from '@nestjs/common';
 import { AuthentificationService } from './authentification.service';
 import { CreateAuthentificationDto } from './dto/login.dto';
 /* import { UpdateAuthentificationDto } from './dto/update-authentification.dto'; */
@@ -9,7 +9,7 @@ import { AccessTokenStrategy } from './strategies/accessToken.strategie';
 import { RefreshTokenGuard } from './guards/refrechToken.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
-import { Request } from 'express';
+import { Request, Response } from 'express';
 import { UpdateUserDto } from 'src/users/dto/update-user.dto';
 
 @Controller('authentification')
@@ -42,12 +42,7 @@ export class AuthentificationController {
   logout(@Req() req: Request) {
     this.authentificationService.logOut(req.user['sub']);
   }
-  @UseGuards(AccessTokenGuard)
-  @Patch("updatepassword/:id")
-  async newPassword(@Body() updateUserDto:UpdateUserDto, @Param('id') id:string){
-    await this.authentificationService.updatePassword(id, updateUserDto )
-
-  }
+  
 
   @UseGuards(RefreshTokenGuard)
   @Get('refresh')
@@ -55,8 +50,29 @@ export class AuthentificationController {
     const userId = req.user['sub'];
     const refrechToken = req.user['refereshToken'];
     return this.authentificationService.refeshTokens(userId, refrechToken);
+   
+      
   }
 
-
-
+  
+  @UseGuards(AccessTokenGuard)
+  @Patch("updatepassword/:id")
+  async newPassword(@Res() response: Response,@Body() updateUserDto:UpdateUserDto, @Param('id') id:string){
+    //await this.authentificationService.updatePassword(id, updateUserDto )
+    try {
+      const password = await this.authentificationService.updatePassword(id, updateUserDto );
+      console.log('update password success-----------------------')
+      return response.status(HttpStatus.OK).json({
+          message: "Password updated successfully!",
+          status: HttpStatus.OK,
+        data: password
+      });
+  } catch (error) {
+      return response.status(HttpStatus.BAD_REQUEST).json({
+          message: error.message,
+          status: HttpStatus.BAD_REQUEST,
+          data: null
+      });
+  }
+  }
 }

@@ -77,9 +77,10 @@ let UsersController = class UsersController {
             });
         }
     }
-    async verifyCUserByCode(response, code) {
+    async verifyCUserByCode(response, code, newPassword) {
         try {
-            const existingUser = await this.usersService.verifyUserByCode(code);
+            const existingUser = await this.usersService.verifyUserByCode(code, newPassword);
+            console.log(`reset password---------------${existingUser}`);
             return response.status(common_1.HttpStatus.OK).json({
                 message: 'User found successfully',
                 data: existingUser,
@@ -174,8 +175,9 @@ __decorate([
     (0, common_1.Get)('/verifyCode/:code'),
     __param(0, (0, common_1.Res)()),
     __param(1, (0, common_1.Param)('code')),
+    __param(2, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, String]),
+    __metadata("design:paramtypes", [Object, String, String]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "verifyCUserByCode", null);
 __decorate([

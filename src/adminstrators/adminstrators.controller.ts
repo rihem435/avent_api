@@ -51,19 +51,7 @@ export class AdminstratorsController {
   remove(@Param('id') id: string) {
     return this.adminstratorsService.deleteAdminstrator(id)
   }
-   /*Déclaration de l'appel de la focntion Password --*/
-   @Put('/update-pass/:id')
-    async updatePassword(@Res() response, @Param('id') id: string, @Body() updatePasswordDto: UpdatePasswordDto) {
-    try {
-      await this.adminstratorsService.updatePassword(id, updatePasswordDto);
-       return response.status(HttpStatus.OK).json({
-         message: 'Admin password has been updated', });
-        } catch (error) { console.error('Error in updatePassword controller:', error);
-           return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
-             statusCode: 500, message: 'Internal server error', error: 'Internal Server Error', }); }
-           }
 }
-
 
 
 

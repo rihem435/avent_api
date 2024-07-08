@@ -36,13 +36,28 @@ let AuthentificationController = class AuthentificationController {
     logout(req) {
         this.authentificationService.logOut(req.user['sub']);
     }
-    async newPassword(updateUserDto, id) {
-        await this.authentificationService.updatePassword(id, updateUserDto);
-    }
     refreshTokens(req) {
         const userId = req.user['sub'];
         const refrechToken = req.user['refereshToken'];
         return this.authentificationService.refeshTokens(userId, refrechToken);
+    }
+    async newPassword(response, updateUserDto, id) {
+        try {
+            const password = await this.authentificationService.updatePassword(id, updateUserDto);
+            console.log('update password success-----------------------');
+            return response.status(common_1.HttpStatus.OK).json({
+                message: "Password updated successfully!",
+                status: common_1.HttpStatus.OK,
+                data: password
+            });
+        }
+        catch (error) {
+            return response.status(common_1.HttpStatus.BAD_REQUEST).json({
+                message: error.message,
+                status: common_1.HttpStatus.BAD_REQUEST,
+                data: null
+            });
+        }
     }
 };
 exports.AuthentificationController = AuthentificationController;
@@ -76,15 +91,6 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], AuthentificationController.prototype, "logout", null);
 __decorate([
-    (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
-    (0, common_1.Patch)("updatepassword/:id"),
-    __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.Param)('id')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [update_user_dto_1.UpdateUserDto, String]),
-    __metadata("design:returntype", Promise)
-], AuthentificationController.prototype, "newPassword", null);
-__decorate([
     (0, common_1.UseGuards)(refrechToken_guard_1.RefreshTokenGuard),
     (0, common_1.Get)('refresh'),
     __param(0, (0, common_1.Req)()),
@@ -92,6 +98,16 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], AuthentificationController.prototype, "refreshTokens", null);
+__decorate([
+    (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
+    (0, common_1.Patch)("updatepassword/:id"),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Body)()),
+    __param(2, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, update_user_dto_1.UpdateUserDto, String]),
+    __metadata("design:returntype", Promise)
+], AuthentificationController.prototype, "newPassword", null);
 exports.AuthentificationController = AuthentificationController = __decorate([
     (0, common_1.Controller)('authentification'),
     __metadata("design:paramtypes", [authentification_service_1.AuthentificationService])

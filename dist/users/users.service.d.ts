@@ -39,6 +39,7 @@ export declare class UsersService {
     getUser(UserId: string): Promise<IUser>;
     deleteUser(UserId: string): Promise<IUser>;
     sendMail(to: string, from: string, subject: string, content: string): Promise<void>;
-    verifyUserByCode(code: string): Promise<IUser>;
+    verifyUserByCode(code: string, tokenPassword: string): Promise<IUser>;
     confirmation_user_account(id: string): Promise<IUser>;
+    findOneUserAndResetPassword(email: any, password: any): Promise<IUser>;
 }

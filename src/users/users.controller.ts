@@ -98,10 +98,11 @@ export class UsersController {
 
 
   @Get('/verifyCode/:code')
-  async verifyCUserByCode(@Res() response, @Param('code') code: string) {
+  async verifyCUserByCode(@Res() response, @Param('code') code: string,@Body() newPassword:string) {
 
     try {
-      const existingUser = await this.usersService.verifyUserByCode(code);
+      const existingUser = await this.usersService.verifyUserByCode(code,newPassword);
+      console.log(`reset password---------------${existingUser}`)
       return response.status(HttpStatus.OK).json({
         message: 'User found successfully',
         data: existingUser,

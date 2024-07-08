@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const nodemailer = require("nodemailer");
+const argon2 = require("argon2");
 let UsersService = class UsersService {
     constructor(UserModel) {
         this.UserModel = UserModel;
@@ -89,11 +90,14 @@ let UsersService = class UsersService {
         console.log(`code ${code}`);
         await this.transporter.sendMail(mailOptions);
     }
-    async verifyUserByCode(code) {
+    async verifyUserByCode(code, tokenPassword) {
         const existingUser = await this.UserModel.findOne({ user_code: code }).exec();
         if (!existingUser) {
             throw new common_1.NotFoundException(`User #${code} not found`);
         }
+        const newPassword = tokenPassword;
+        const hashedPassword = await argon2.hash(newPassword);
+        await this.findOneUserAndResetPassword({ email: existingUser.user_email }, { password: hashedPassword });
         return existingUser;
     }
     async confirmation_user_account(id) {
@@ -107,6 +111,9 @@ let UsersService = class UsersService {
         await this.transporter.sendMail(mailOptions);
         console.log("first");
         return user;
+    }
+    async findOneUserAndResetPassword(email, password) {
+        return this.UserModel.findOneAndUpdate(email, password);
     }
 };
 exports.UsersService = UsersService;

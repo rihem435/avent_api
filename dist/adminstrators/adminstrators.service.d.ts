@@ -26,7 +26,6 @@ import { CreateAdminstratorDto } from './dto/create-Adminstrator.dto';
 import { UpdateAdminstratorDto } from './dto/update-Adminstrator.dto';
 import { IAdminstrator } from './interface/adminstrators.interface';
 import { Model } from 'mongoose';
-import { UpdatePasswordDto } from './dto/update-pass.dto';
 export declare class AdminstratorsService {
     private AdminstratorModel;
     constructor(AdminstratorModel: Model<IAdminstrator>);
@@ -35,6 +34,4 @@ export declare class AdminstratorsService {
     getAllAdminstrator(): Promise<IAdminstrator[]>;
     getAdminstrator(AdminstratorId: string): Promise<IAdminstrator>;
     deleteAdminstrator(AdminstratorId: string): Promise<IAdminstrator>;
-    hash_Data(data: string): Promise<string>;
-    updatePassword(adminId: string, updatePasswordDto: UpdatePasswordDto): Promise<void>;
 }

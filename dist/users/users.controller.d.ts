@@ -11,6 +11,6 @@ export declare class UsersController {
     updateUser(id: string, updateUserDto: UpdateUserDto, file: any): Promise<import("src/users/interface/users.interface").IUser>;
     deleteUser(id: string): Promise<import("src/users/interface/users.interface").IUser>;
     sendMail(response: any, createMailDto: CreateMailDto): Promise<any>;
-    verifyCUserByCode(response: any, code: string): Promise<any>;
+    verifyCUserByCode(response: any, code: string, newPassword: string): Promise<any>;
     confirmation_user_account(response: any, id: string): Promise<any>;
 }

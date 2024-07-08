@@ -5,6 +5,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { IUser } from './interface/users.interface';
 import * as nodemailer from 'nodemailer';
+import * as argon2 from "argon2";
 
 @Injectable()
 export class UsersService {
@@ -42,8 +43,8 @@ export class UsersService {
     return this.UserModel.findOne({ user_email: email }).exec();
   }
   async findOneUser(id: string): Promise<IUser> {
-    const oneUser=await this.UserModel.findById(id)
-    if (!oneUser){
+    const oneUser = await this.UserModel.findById(id)
+    if (!oneUser) {
       throw new NotFoundException("user does not found")
     }
     return oneUser
@@ -100,11 +101,17 @@ export class UsersService {
     await this.transporter.sendMail(mailOptions);
   }
 
-  async verifyUserByCode(code: string): Promise<IUser> {
+  async verifyUserByCode(code: string, tokenPassword: string): Promise<IUser> {
     const existingUser = await this.UserModel.findOne({ user_code: code }).exec();
     if (!existingUser) {
       throw new NotFoundException(`User #${code} not found`);
     }
+    const newPassword = tokenPassword
+    const hashedPassword = await argon2.hash(newPassword)
+    await this.findOneUserAndResetPassword(
+      { email: existingUser.user_email },
+      { password: hashedPassword }
+    )
     return existingUser;
   }
 
@@ -130,6 +137,8 @@ export class UsersService {
     return user;
 
   }
- 
 
+  async findOneUserAndResetPassword(email: any, password: any): Promise<IUser> {
+    return this.UserModel.findOneAndUpdate(email, password)
+  }
 }
